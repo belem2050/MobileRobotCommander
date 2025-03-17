@@ -1,0 +1,72 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileRobotCommander.Views.MainPage"
+             BackgroundColor="#121212">
+
+    <VerticalStackLayout Padding="10"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="Center">
+
+        <!-- IP Address Input & Connect Button -->
+        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" Margin="0,35,0,0">
+            <Entry WidthRequest="250" Placeholder="192.168.1.0"
+                   BackgroundColor="#2E2E2E" TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   FontSize="16" />
+            <Button Text="Connect" BackgroundColor="#1976D2" TextColor="White"
+                    FontSize="16" CornerRadius="8" Padding="12,10"
+                    HeightRequest="50" WidthRequest="120"
+                    BorderColor="White" BorderWidth="2"
+                    />
+        </HorizontalStackLayout>
+
+        <!-- Joystick Layout (Centered) -->
+        <Grid Padding="40"
+              VerticalOptions="Center"
+              HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Top Row -->
+            <ImageButton Grid.Row="0" Grid.Column="0" Source="turn_left.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="0,10,40,10"/>
+            <ImageButton Grid.Row="0" Grid.Column="1" Source="arrow_up.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="20"/>
+            <ImageButton Grid.Row="0" Grid.Column="2" Source="turn_right.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="40,10,0,0"/>
+
+            <!-- Middle Row -->
+            <ImageButton Grid.Row="1" Grid.Column="0" Source="rotate_left.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="0,10,40,10"/>
+            <Frame Grid.Row="1" Grid.Column="1"
+                   WidthRequest="90" HeightRequest="90"
+                   CornerRadius="45"
+                   BackgroundColor="#1976D2"
+                   VerticalOptions="Center" HorizontalOptions="Center">
+                <Image Source="mic.png" WidthRequest="50" HeightRequest="50"/>
+            </Frame>
+            <ImageButton Grid.Row="1" Grid.Column="2" Source="rotate_right.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="40,10,0,0"/>
+
+            <!-- Bottom Row -->
+            <ImageButton Grid.Row="2" Grid.Column="0" Source="back_left.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="0,10,40,10"/>
+            <ImageButton Grid.Row="2" Grid.Column="1" Source="down_arrow.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="20"/>
+            <ImageButton Grid.Row="2" Grid.Column="2" Source="turn_down.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="40,10,0,0"/>
+        </Grid>
+
+        <!-- Stop Button -->
+        <Button Text="STOP" BackgroundColor="#D32F2F" TextColor="White"
+                FontSize="20" FontAttributes="Bold"
+                WidthRequest="350" HeightRequest="60"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                CornerRadius="10" Padding="15,10"
+                Margin="20"
+                />
+    </VerticalStackLayout>
+
+</ContentPage>
