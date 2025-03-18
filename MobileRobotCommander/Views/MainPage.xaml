@@ -8,15 +8,28 @@
                          HorizontalOptions="Center">
 
         <!-- IP Address Input & Connect Button -->
-        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" Margin="0,35,0,0">
-            <Entry WidthRequest="250" Placeholder="192.168.1.0"
-                   BackgroundColor="#2E2E2E" TextColor="White"
+        <HorizontalStackLayout Spacing="10" 
+                               HorizontalOptions="Center" 
+                               Margin="0,35,0,0">
+            
+            <Entry WidthRequest="250" 
+                   Placeholder="192.168.1.0"
+                   BackgroundColor="#2E2E2E" 
+                   TextColor="White"
                    HorizontalTextAlignment="Center"
-                   FontSize="16" />
-            <Button Text="Connect" BackgroundColor="#1976D2" TextColor="White"
-                    FontSize="16" CornerRadius="8" Padding="12,10"
-                    HeightRequest="50" WidthRequest="120"
-                    BorderColor="White" BorderWidth="2"
+                   FontSize="16" 
+                   Text="{Binding Path=IpAdress}"/>
+            <Button Text="{Binding Path=ConnectMessage}" 
+                    BackgroundColor="#1976D2" 
+                    TextColor="White"
+                    FontSize="16" 
+                    CornerRadius="8" 
+                    Padding="12,10"
+                    HeightRequest="50" 
+                    WidthRequest="120"
+                    BorderColor="White" 
+                    BorderWidth="2"
+                    Command="{Binding Path=ConnectCommand}"
                     />
         </HorizontalStackLayout>
 
@@ -37,35 +50,126 @@
             </Grid.ColumnDefinitions>
 
             <!-- Top Row -->
-            <ImageButton Grid.Row="0" Grid.Column="0" Source="turn_left.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="0,10,40,10"/>
-            <ImageButton Grid.Row="0" Grid.Column="1" Source="arrow_up.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="20"/>
-            <ImageButton Grid.Row="0" Grid.Column="2" Source="turn_right.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="40,10,0,0"/>
+            <ImageButton    Grid.Row="0" 
+                            Grid.Column="0" 
+                            Source="turn_left.png" 
+                            WidthRequest="60" 
+                            HeightRequest="60" 
+                            BackgroundColor="Transparent" 
+                            Margin="0,10,40,10"
+                            Pressed="ForwardLeftPressed"
+                            Released="ButtonReleased"
+                            />
+
+            <ImageButton    Grid.Row="0" 
+                            Grid.Column="1" 
+                            Source="arrow_up.png" 
+                            WidthRequest="60" 
+                            HeightRequest="60" 
+                            BackgroundColor="Transparent" 
+                            Margin="20"
+                            Pressed="ForwardPressed"
+                            Released="ButtonReleased"
+                            Command="{Binding Path=ForwardCommand}"
+                            />   
+            <ImageButton    Grid.Row="0" 
+                            Grid.Column="2" 
+                            Source="turn_right.png" 
+                            WidthRequest="60" 
+                            HeightRequest="60" 
+                            BackgroundColor="Transparent" 
+                            Margin="40,10,0,0"
+                            Pressed="ForwardRightPressed"
+                            Released="ButtonReleased"
+                            />
 
             <!-- Middle Row -->
-            <ImageButton Grid.Row="1" Grid.Column="0" Source="rotate_left.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="0,10,40,10"/>
-            <Frame Grid.Row="1" Grid.Column="1"
-                   WidthRequest="90" HeightRequest="90"
-                   CornerRadius="45"
-                   BackgroundColor="#1976D2"
-                   VerticalOptions="Center" HorizontalOptions="Center">
-                <Image Source="mic.png" WidthRequest="50" HeightRequest="50"/>
+            <ImageButton Grid.Row="1" 
+                         Grid.Column="0" 
+                         Source="rotate_left.png" 
+                         WidthRequest="60" 
+                         HeightRequest="60" 
+                         BackgroundColor="Transparent" 
+                         Margin="0,10,40,10"
+                         Pressed="RotateLeftPressed"
+                         Released="ButtonReleased"
+                         />
+
+            <Frame  Grid.Row="1" 
+                    Grid.Column="1"
+                    WidthRequest="90" HeightRequest="90"
+                    CornerRadius="45"
+                    BackgroundColor="#1976D2"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center">
+                <Image Source="mic.png" 
+                       WidthRequest="50" 
+                       HeightRequest="50"
+                       />
             </Frame>
-            <ImageButton Grid.Row="1" Grid.Column="2" Source="rotate_right.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="40,10,0,0"/>
+
+            <ImageButton  Grid.Row="1" 
+                          Grid.Column="2" 
+                          Source="rotate_right.png" 
+                          WidthRequest="60" 
+                          HeightRequest="60" 
+                          BackgroundColor="Transparent" 
+                          Margin="40,10,0,0"
+                          Pressed="RotateRightPressed"
+                          Released="ButtonReleased"
+                          />    
 
             <!-- Bottom Row -->
-            <ImageButton Grid.Row="2" Grid.Column="0" Source="back_left.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="0,10,40,10"/>
-            <ImageButton Grid.Row="2" Grid.Column="1" Source="down_arrow.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="20"/>
-            <ImageButton Grid.Row="2" Grid.Column="2" Source="turn_down.png" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" Margin="40,10,0,0"/>
+            <ImageButton    Grid.Row="2" 
+                            Grid.Column="0" 
+                            Source="back_left.png" 
+                            WidthRequest="60" 
+                            HeightRequest="60" 
+                            BackgroundColor="Transparent" 
+                            Margin="0,10,40,10"
+                            Pressed="BackwardLeftPressed"
+                            Released="ButtonReleased"
+                            />
+            
+            <ImageButton    Grid.Row="2" 
+                            Grid.Column="1" 
+                            Source="down_arrow.png" 
+                            WidthRequest="60" 
+                            HeightRequest="60" 
+                            BackgroundColor="Transparent" 
+                            Margin="20"
+                            Pressed="BackwardPressed"
+                            Released="ButtonReleased"
+                            />
+            
+            <ImageButton    Grid.Row="2" 
+                            Grid.Column="2" 
+                            Source="turn_down.png" 
+                            WidthRequest="60" 
+                            HeightRequest="60" 
+                            BackgroundColor="Transparent" 
+                            Margin="40,10,0,0"
+                            Pressed="BackwardRightPressed"
+                            Released="ButtonReleased"
+                            
+                />
         </Grid>
 
         <!-- Stop Button -->
-        <Button Text="STOP" BackgroundColor="#D32F2F" TextColor="White"
-                FontSize="20" FontAttributes="Bold"
-                WidthRequest="350" HeightRequest="60"
+        <Button Text="STOP" 
+                BackgroundColor="#D32F2F" 
+                TextColor="White"
+                FontSize="20" 
+                FontAttributes="Bold"
+                WidthRequest="350" 
+                HeightRequest="60"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                CornerRadius="10" Padding="15,10"
+                CornerRadius="10" 
+                Padding="15,10"
                 Margin="20"
+                Pressed="StopPressed"
+                Released="ButtonReleased"
                 />
     </VerticalStackLayout>
 

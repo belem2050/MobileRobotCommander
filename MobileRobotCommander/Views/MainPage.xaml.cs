@@ -1,42 +1,63 @@
 
+using MobileRobotCommander.ViewModels;
+
 namespace MobileRobotCommander.Views
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(MainPageVm vm)
         {
             InitializeComponent();
+            BindingContext = vm;
         }
 
-        //private void OnConnectClicked(object sender, EventArgs e)
-        //{
-        //    CommandLog.Text += $"\nConnecting to {IpAddressEntry.Text}...";
-        //}
+        private async void ForwardLeftPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).ForwardLeftCommand.ExecuteAsync(null);
+        }
+        
+        private async void ForwardPressed(object sender, EventArgs e)
+        {
+            await ((MainPageVm)BindingContext).ForwardCommand.ExecuteAsync(null);
+        }
 
-        //private void OnMoveClicked(object sender, EventArgs e)
-        //{
-        //    if (sender is Button btn)
-        //    {
-        //        CommandLog.Text += $"\nMoving: {btn.Text}";
-        //    }
-        //}
+        private async void ForwardRightPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).ForwardRightCommand.ExecuteAsync(null);
+        }    
 
-        //private void OnRotateClicked(object sender, EventArgs e)
-        //{
-        //    if (sender is Button btn)
-        //    {
-        //        CommandLog.Text += $"\nRotating: {btn.Text}";
-        //    }
-        //}
+        private async void RotateLeftPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).RotateLeftCommand.ExecuteAsync(null);
+        }  
 
-        //private void OnVoiceCommand(object sender, EventArgs e)
-        //{
-        //    CommandLog.Text += "\nVoice Command Activated...";
-        //}
+        private async void RotateRightPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).RotateRightCommand.ExecuteAsync(null);
+        }   
 
-        //private void OnStopClicked(object sender, EventArgs e)
-        //{
-        //    CommandLog.Text += "\nSTOP!";
-        //}
+        private async void BackwardLeftPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).BackwardLeftCommand.ExecuteAsync(null);
+        } 
+        private async void BackwardRightPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).BackwardRightCommand.ExecuteAsync(null);
+        } 
+        
+        private async void BackwardPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).BackwardCommand.ExecuteAsync(null);
+        }  
+
+        private async void StopPressed(object sender, EventArgs e)
+        {
+            await((MainPageVm)BindingContext).StopCommand.ExecuteAsync(null);
+        }
+
+        private void ButtonReleased(object sender, EventArgs e)
+        {
+            ((MainPageVm)BindingContext).Release();
+        }
     }
 }
