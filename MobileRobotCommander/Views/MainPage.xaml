@@ -70,7 +70,6 @@
                             Margin="20"
                             Pressed="ForwardPressed"
                             Released="ButtonReleased"
-                            Command="{Binding Path=ForwardCommand}"
                             />   
             <ImageButton    Grid.Row="0" 
                             Grid.Column="2" 
