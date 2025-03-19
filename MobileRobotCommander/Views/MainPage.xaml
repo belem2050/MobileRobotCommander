@@ -13,13 +13,13 @@
                                Margin="0,35,0,0">
             
             <Entry WidthRequest="250" 
-                   Placeholder="192.168.1.0"
+                   Placeholder="0.0.0.0"
                    BackgroundColor="#2E2E2E" 
                    TextColor="White"
                    HorizontalTextAlignment="Center"
                    FontSize="16" 
-                   Text="{Binding Path=IpAdress}"/>
-            <Button Text="{Binding Path=ConnectMessage}" 
+                   Text="{Binding Path=IpAdress, Mode=TwoWay}"/>
+                   <Button Text="{Binding Path=ConnectMessage}" 
                     BackgroundColor="#1976D2" 
                     TextColor="White"
                     FontSize="16" 

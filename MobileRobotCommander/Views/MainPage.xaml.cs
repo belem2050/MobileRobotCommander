@@ -55,9 +55,9 @@ namespace MobileRobotCommander.Views
             await((MainPageVm)BindingContext).StopCommand.ExecuteAsync(null);
         }
 
-        private void ButtonReleased(object sender, EventArgs e)
+        private async void ButtonReleased(object sender, EventArgs e)
         {
-            ((MainPageVm)BindingContext).Release();
+            await((MainPageVm)BindingContext).Release();
         }
     }
 }
