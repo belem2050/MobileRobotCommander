@@ -1,9 +1,13 @@
+using MobileRobotCommander.ViewModels;
+
 namespace MobileRobotCommander.Views;
 
 public partial class SettingsPage : ContentPage
 {
-	public SettingsPage()
+
+	public SettingsPage(SettingsPageVm vm)
 	{
 		InitializeComponent();
+		BindingContext = vm;
 	}
 }

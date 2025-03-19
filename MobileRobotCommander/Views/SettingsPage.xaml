@@ -1,7 +1,120 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MobileRobotCommander.ViewModels"
              x:Class="MobileRobotCommander.Views.SettingsPage"
-             Title="Settings">
-  
+             Title="Settings"
+             BackgroundColor="#121212">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+
+            <!-- Title -->
+            <Label Text="Robot Control Settings" 
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   />
+
+            <Frame Padding="10" CornerRadius="10" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                    BorderColor="#1976D2"
+                   >
+                <VerticalStackLayout>
+                    <Label Text="Robot default IP adress" FontSize="16" TextColor="White" />
+                    <Entry Text="{Binding DefaultIpAdress, Mode=TwoWay}" 
+                            Keyboard="Default"
+                            Placeholder="Enter port number"
+                            FontSize="16" 
+                           TextColor="White"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" CornerRadius="10" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True" 
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Port" FontSize="16" TextColor="White" />
+                    <Entry Text="{Binding Port}" 
+                           Keyboard="Numeric"
+                           Placeholder="Enter port number"
+                           FontSize="16" 
+                           TextColor="White"
+                           />
+                </VerticalStackLayout>
+            </Frame>
+
+
+            <Frame Padding="10" 
+                   CornerRadius="10" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2"
+                   >
+                <VerticalStackLayout>
+                    <Label Text="Command velocity topic" FontSize="16" TextColor="White"/>
+                    <Entry Text="{Binding CmdVelocityCommandTopic}" 
+                           Placeholder="Enter ROS topic"
+                           FontSize="16"
+                           TextColor="White"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" 
+                   CornerRadius="10" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True" 
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Linear Max Speed" 
+                           FontSize="16" 
+                           TextColor="White"/>
+                    <Slider Minimum="0" Maximum="10" 
+                            Value="{Binding MaxLinearSpeed, Mode=TwoWay}" 
+                            ThumbColor="DeepSkyBlue" 
+                            MinimumTrackColor="DodgerBlue" 
+                            />
+                    
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" 
+                   CornerRadius="10" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Angular Max Speed" 
+                           FontSize="16" 
+                           TextColor="White"/>
+                    <Slider Minimum="0" Maximum="10" 
+                            Value="{Binding MaxAngularSpeed, Mode=TwoWay}" 
+                            ThumbColor="DeepSkyBlue" 
+                            MinimumTrackColor="DodgerBlue" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="{Binding SaveButtonText}"
+                    BackgroundColor="{Binding SaveButtonColor}"
+                    Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding HasChanged}"
+                    TextColor="White"
+                    FontSize="16"
+                    CornerRadius="10"
+                    Padding="10" 
+                    />
+
+                <Button Text="Reset Default Settings"
+                        BackgroundColor="Red"
+                        Command="{Binding ResetCommand}"
+                        TextColor="White"
+                        FontSize="16"
+                        CornerRadius="10"
+                        Padding="10" 
+                  />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

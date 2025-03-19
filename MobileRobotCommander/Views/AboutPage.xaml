@@ -2,6 +2,109 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileRobotCommander.Views.AboutPage"
-             Title="About">
-   
+             Title="About"
+             BackgroundColor="#121212">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+
+            <!-- App Title -->
+            <Label Text="Mobile Robot Commander" 
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" 
+                   TextColor="White" 
+                   Padding="0,20,0,10"/>
+
+            <!-- App Version Frame -->
+            <Frame Padding="10" 
+                   CornerRadius="12" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Version" 
+                           FontSize="18" 
+                           TextColor="White" />
+                    <Label Text="1.0.0" 
+                           FontSize="16" 
+                           TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Developer Info Frame -->
+            <Frame Padding="10" 
+                   CornerRadius="12" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Developer" 
+                           FontSize="18" 
+                           TextColor="White" />
+                    <Label Text="Moumouni BELEM" 
+                           FontSize="16" 
+                           TextColor="White" />
+                    <Label Text="Engineer in Robotics and AI" 
+                           FontSize="16" 
+                           TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Acknowledgments Frame -->
+            <Frame Padding="10" 
+                   CornerRadius="12" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Acknowledgments" 
+                           FontSize="18" 
+                           TextColor="White" />
+                    <Label Text="Thanks to all contributors and the open-source community." 
+                           FontSize="16" 
+                           TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Contact Information -->
+            <Frame Padding="10" 
+                   CornerRadius="12" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="Contact" 
+                           FontSize="18" 
+                           TextColor="White" />
+
+                    <Label Text="Email: moumouni.belem.ing@gmail.com" 
+                           FontSize="16" TextColor="White" />
+
+                    <Label Text="LinkedIn: www.linkedin.com/in/moumouni-belem" 
+                           FontSize="16" TextColor="White" />
+
+                    <Label Text="Website: https://belem2050.github.io/" 
+                           FontSize="16" TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- GitHub Repository -->
+            <Frame Padding="10" 
+                   CornerRadius="12" 
+                   BackgroundColor="#2E2E2E" 
+                   HasShadow="True"
+                   BorderColor="#1976D2">
+                <VerticalStackLayout>
+                    <Label Text="GitHub Repository" 
+                           FontSize="18" 
+                           TextColor="White" />
+                    <Label Text="https://github.com/belem2050/MobileRobotCommander" 
+                           FontSize="16" 
+                           TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
