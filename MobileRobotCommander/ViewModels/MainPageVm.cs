@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Net.WebSockets;
 using System.Text;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace MobileRobotCommander.ViewModels
 {
@@ -14,7 +15,7 @@ namespace MobileRobotCommander.ViewModels
         public SettingsPageVm  Settings { get; private set; } = SystemManager.GetInstance().Settings;
 
         [ObservableProperty]
-        private string ipAdress = string.Empty;
+        private string ipAdress ="192.168.1.33";
 
         [ObservableProperty]
         private string connectMessage = "Connect";
@@ -22,6 +23,7 @@ namespace MobileRobotCommander.ViewModels
         public MainPageVm()
         {
             _webSocket = new ClientWebSocket();
+            IpAdress = Settings.DefaultIpAdress;
         }
 
         private async Task SendVelocityCommand(double linearX, double angularZ)
@@ -55,24 +57,31 @@ namespace MobileRobotCommander.ViewModels
         [RelayCommand]
         public async Task Connect()
         {
+            IPAddress iPAddress;
+
             try
             {
+                if(!IPAddress.TryParse(IpAdress.ToString(), out iPAddress))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Invalid IP", "Please enter a valid IP address.", "OK");
+                    return;
+                }
+
                 if (_webSocket.State == WebSocketState.Open)
                 {
                     await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "",  CancellationToken.None);
                     ConnectMessage = "Connect";
                     return;
                 }
-
-                if (string.IsNullOrEmpty(IpAdress))
-                    return;
+          
                 _webSocket = new ClientWebSocket();
 
-                Uri uri = new Uri($"ws://{IpAdress}:{Settings.Port}");
+                Uri uri = new Uri($"ws://{IpAdress.ToString()}:{Settings.Port}");
 
                 ConnectMessage = "Connecting";
 
                 await _webSocket.ConnectAsync(uri, new CancellationTokenSource(10000).Token);
+
 
                 ConnectMessage = (_webSocket.State == WebSocketState.Open) ? "Disconnect" : "Connect" ;
             }
@@ -112,7 +121,7 @@ namespace MobileRobotCommander.ViewModels
             while (isHolding)
             {
                 linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
-                angular = Math.Max(angular - 0.1, Settings.MinAngularSpeed);
+                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
 
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
@@ -129,8 +138,7 @@ namespace MobileRobotCommander.ViewModels
             while (isHolding)
             {
                 linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
-                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
-
+                angular = Math.Min(angular - 0.1, -Settings.MaxLinearSpeed);
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
             }
@@ -144,8 +152,7 @@ namespace MobileRobotCommander.ViewModels
 
             while (isHolding)
             {
-                angular = Math.Max(angular - 0.1, Settings.MinAngularSpeed);
-
+                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
                 await SendVelocityCommand(0.0, angular);
                 await Task.Delay(200);
             }
@@ -160,8 +167,7 @@ namespace MobileRobotCommander.ViewModels
 
             while (isHolding)
             {
-                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
-
+                angular = Math.Min(angular - 0.1, -Settings.MaxAngularSpeed);
                 await SendVelocityCommand(0.0, angular);
                 await Task.Delay(200);
             }
@@ -175,7 +181,7 @@ namespace MobileRobotCommander.ViewModels
 
             while (isHolding)
             {
-                speed = Math.Max(speed - 0.1, Settings.MinLinearSpeed);
+                speed = Math.Min(speed - 0.1, -Settings.MaxLinearSpeed);
                 await SendVelocityCommand(speed, 0.0);
                 await Task.Delay(200);
             }
@@ -190,8 +196,8 @@ namespace MobileRobotCommander.ViewModels
 
             while (isHolding)
             {
-                linear = Math.Max(linear - 0.1, Settings.MinLinearSpeed);
-                angular = Math.Max(angular - 0.1, Settings.MinAngularSpeed);
+                linear = Math.Min(linear - 0.1, -Settings.MaxLinearSpeed);
+                angular = Math.Min(angular - 0.1, -Settings.MaxAngularSpeed);
 
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
@@ -207,8 +213,8 @@ namespace MobileRobotCommander.ViewModels
 
             while (isHolding)
             {
-                linear = Math.Max(linear + 0.1, Settings.MinLinearSpeed);
-                angular = Math.Max(angular + 0.1, Settings.MinAngularSpeed);
+                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
 
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
@@ -221,9 +227,10 @@ namespace MobileRobotCommander.ViewModels
             await SendVelocityCommand(0.0 , 0.0).ConfigureAwait(false);
         }
 
-        public void Release()
+        public async Task Release()
         {
             isHolding = false;
+            await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
         }
     }
 }
