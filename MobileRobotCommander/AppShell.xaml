@@ -9,8 +9,9 @@
     Title="MobileRobotCommander">
 
     <FlyoutItem Title="Robot Commander" Icon="robot.png">
-        <ShellContent Title="Robot Commander" ContentTemplate="{DataTemplate pages:MainPage}" 
-                      Route="MainPage"/>
+        <ShellContent Title="Mobile Robot Commander" ContentTemplate="{DataTemplate pages:MainPage}" 
+                      Route="MainPage"
+                      />
     </FlyoutItem>
 
     <FlyoutItem Title="Settings" Icon="setting.png">
