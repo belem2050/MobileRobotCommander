@@ -61,14 +61,6 @@ namespace MobileRobotCommander.Views
             await((MainPageVm)BindingContext).Release();
         }
 
-        //private async void StartListeningButton_Clicked(object sender, EventArgs e)
-        //{
-        //    await((MainPageVm)BindingContext).StartListeningCommand.ExecuteAsync(null);
-        //}
-
-        //private async void StartListeningButton_Released(object sender, EventArgs e)
-        //{
-        //    await((MainPageVm)BindingContext).StopListening();
-        //}
+        
     }
 }

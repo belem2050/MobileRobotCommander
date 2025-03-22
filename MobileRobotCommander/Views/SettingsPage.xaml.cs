@@ -5,9 +5,9 @@ namespace MobileRobotCommander.Views;
 public partial class SettingsPage : ContentPage
 {
 
-	public SettingsPage(SettingsPageVm vm)
+    public SettingsPage()
 	{
 		InitializeComponent();
-		BindingContext = vm;
-	}
+        BindingContext = SystemManager.GetInstance().Command.Settings;
+    }
 }

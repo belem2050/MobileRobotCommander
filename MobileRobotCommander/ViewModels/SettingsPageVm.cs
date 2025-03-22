@@ -9,7 +9,7 @@ namespace MobileRobotCommander.ViewModels
         private string cmdVelocityCommandTopic = "/cmd_vel";
 
         [ObservableProperty]
-        private string defaultIpAdress = "192.168.1.33";
+        private string defaultIpAdress = "0.0.0.0";
 
         [ObservableProperty]
         private int port = 9090;
@@ -44,7 +44,7 @@ namespace MobileRobotCommander.ViewModels
             LoadSettings();
         }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
             CmdVelocityCommandTopic = Preferences.Get("CmdVelocityCommandTopic", "/cmd_vel");
             DefaultIpAdress = Preferences.Get("DefaultIpAdress", "192.168.1.33");
@@ -64,6 +64,8 @@ namespace MobileRobotCommander.ViewModels
             Preferences.Set("MaxAngularSpeed", MaxAngularSpeed);
 
             HasChanged = false;
+
+            SystemManager.GetInstance().Command.IpAdress = DefaultIpAdress;
         }
 
         [RelayCommand]
