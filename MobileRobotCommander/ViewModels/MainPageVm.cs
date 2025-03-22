@@ -102,8 +102,6 @@ namespace MobileRobotCommander.ViewModels
             Command.IsHolding = false;
             Command.IsListening = false;
             await Command.Stop().ConfigureAwait(false);
-            //await SpeechToText.StopListenAsync();
-
             await _speechToText.MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
             _speechToText.MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
         }

@@ -15,6 +15,9 @@ namespace MobileRobotCommander.Models
         public Color stopButtonColor = Colors.Gray;
 
         [ObservableProperty]
+        public Color connectButtonColor = Colors.Gray;
+
+        [ObservableProperty]
         private string ipAdress = "0.0.0.0";
 
         [ObservableProperty]
@@ -41,7 +44,7 @@ namespace MobileRobotCommander.Models
                 {
                     return;
                 }
-
+            
                 if (!IPAddress.TryParse(IpAdress.ToString(), out iPAddress))
                 {
                     await Application.Current.MainPage.DisplayAlert("Invalid IP", "Please enter a valid IP address.", "OK");
@@ -52,6 +55,7 @@ namespace MobileRobotCommander.Models
                 {
                     await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                     ConnectMessage = "Connect";
+                    ConnectButtonColor = Colors.Gray;
                     return;
                 }
 
@@ -64,19 +68,35 @@ namespace MobileRobotCommander.Models
                 await _webSocket.ConnectAsync(uri, new CancellationTokenSource(10000).Token);
                 ConnectMessage = (_webSocket.State == WebSocketState.Open) ? "Disconnect" : "Connect";
                 IsConnected = true;
+                ConnectButtonColor = Colors.Red;
+
+                new Thread(new ThreadStart(async () =>
+                {
+                    while (IsConnected)
+                    {
+                        IsConnected = !((_webSocket.State == WebSocketState.Aborted) ||
+                                        (_webSocket.State == WebSocketState.Closed) ||
+                                        (_webSocket.State == WebSocketState.CloseSent) ||
+                                        (_webSocket.State == WebSocketState.CloseReceived)
+                                        );
+                        ConnectMessage = IsConnected ? "Disconnect" : "Connect";
+                        ConnectButtonColor = IsConnected ? Colors.Red : Colors.Gray;
+
+                        Thread.Sleep(1000);
+                    }
+                })).Start();
             }
             catch (Exception ex)
             {
                 ConnectMessage = "Connect";
                 await Application.Current.MainPage.DisplayAlert("Connection Failed!", $"Make sure you have the robot right IP address and Rosbridge webserver is running on the robot and is listening to your set port in default settings, which is {Settings.Port}.", "OK");
                 IsConnected = false;
+                ConnectButtonColor = Colors.Red;
             }
         }
 
         public async Task Forward()
         {
-            StopButtonColor = Colors.Red;
-
             double speed = 0;
 
             while (IsHolding || IsListening)
@@ -89,8 +109,6 @@ namespace MobileRobotCommander.Models
 
         public async Task ForwardLeft()
         {
-            StopButtonColor = Colors.Red;
-
             double linear = 0;
             double angular = 0;
 
@@ -106,8 +124,6 @@ namespace MobileRobotCommander.Models
 
         public async Task ForwardRight()
         {
-            StopButtonColor = Colors.Red;
-
             double linear = 0;
             double angular = 0;
 
@@ -122,8 +138,6 @@ namespace MobileRobotCommander.Models
 
         public async Task RotateLeft()
         {
-            StopButtonColor = Colors.Red;
-
             double angular = 0;
 
             while (IsHolding || IsListening)
@@ -136,8 +150,6 @@ namespace MobileRobotCommander.Models
 
         public async Task RotateRight()
         {
-            StopButtonColor = Colors.Red;
-
             double angular = 0;
 
             while (IsHolding || IsListening)
@@ -150,8 +162,6 @@ namespace MobileRobotCommander.Models
 
         public async Task Backward()
         {
-            StopButtonColor = Colors.Red;
-
             double speed = 0;
 
             while (IsHolding || IsListening)
@@ -164,8 +174,6 @@ namespace MobileRobotCommander.Models
 
         public async Task BackwardLeft()
         {
-            StopButtonColor = Colors.Red;
-
             double linear = 0;
             double angular = 0;
 
@@ -181,8 +189,6 @@ namespace MobileRobotCommander.Models
 
         public async Task BackwardRight()
         {
-            StopButtonColor = Colors.Red;
-
             double linear = 0;
             double angular = 0;
 
@@ -199,7 +205,6 @@ namespace MobileRobotCommander.Models
         public async Task Stop()
         {
             StopButtonColor = Colors.Gray;
-
             await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
             IsListening = false;
         }
@@ -207,7 +212,6 @@ namespace MobileRobotCommander.Models
         public async Task Release()
         {
             StopButtonColor = Colors.Gray;
-
             IsHolding = false;
             await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
         }

@@ -8,9 +8,7 @@ namespace MobileRobotCommander.service
 {
     public partial class SpeechToTextService : ObservableObject
     {
-        public Frame? MicFrame { get; set; } = null;
-
-        public ActionsCommand Command { get; private set; } = SystemManager.GetInstance().Command;
+        private object _lock = new object();
 
         private SpeechToTextOptions _options = new SpeechToTextOptions
         {
@@ -18,7 +16,9 @@ namespace MobileRobotCommander.service
             ShouldReportPartialResults = false,
         };
 
-        public string Message { get; set; } = string.Empty;
+        public Frame? MicFrame { get; set; } = null;
+
+        public ActionsCommand Command { get; private set; } = SystemManager.GetInstance().Command;
 
         public SpeechToTextService(Frame micFrame)
         {
@@ -49,8 +49,13 @@ namespace MobileRobotCommander.service
         {
             if (e.RecognitionResult.IsSuccessful)
             {
-                Message = e.RecognitionResult.Text;
-                await processCommand();
+                lock(_lock)
+                {
+                    new Thread(new ThreadStart(async () =>
+                    {
+                            await processCommand(e.RecognitionResult.Text);
+                    })).Start();
+                }
             }
 
             if(Command.IsListening)
@@ -69,9 +74,9 @@ namespace MobileRobotCommander.service
             }
         }
 
-        private async Task processCommand()
+        private async Task processCommand(string cmd)
         {
-            string command = Message.ToLower();
+            string command = cmd.ToLower();
 
             if (Grammar.Forward.Contains(command))
             {

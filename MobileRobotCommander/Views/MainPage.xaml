@@ -19,7 +19,7 @@
                    FontSize="16" 
                    Text="{Binding Path=Command.IpAdress, Mode=TwoWay}"/>
             <Button  Text="{Binding Path=Command.ConnectMessage}" 
-                            BackgroundColor="#1976D2" 
+                            BackgroundColor="{Binding Path=Command.ConnectButtonColor}" 
                             TextColor="White"
                             FontSize="16" 
                             CornerRadius="8" 
