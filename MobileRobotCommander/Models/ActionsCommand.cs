@@ -1,0 +1,242 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MobileRobotCommander.ViewModels;
+using Newtonsoft.Json;
+using System.Net;
+using System.Net.WebSockets;
+using System.Text;
+
+namespace MobileRobotCommander.Models
+{
+    public partial class ActionsCommand : ObservableObject
+    {
+        private ClientWebSocket _webSocket;
+
+        [ObservableProperty]
+        public Color stopButtonColor = Colors.Gray;
+
+        [ObservableProperty]
+        private string ipAdress = "0.0.0.0";
+
+        [ObservableProperty]
+        private string connectMessage = "Connect";
+
+        public bool IsHolding { get; set; } = false;
+        public bool IsListening { get; set; } = false;
+        public bool IsConnected { get; set; } = false;
+
+        public SettingsPageVm Settings { get; set; } = new SettingsPageVm();
+
+        public ActionsCommand()
+        {
+            IpAdress = Settings.DefaultIpAdress;
+        }
+
+        public async Task Connect()
+        {
+            _webSocket = new ClientWebSocket();
+            IPAddress iPAddress;
+            try
+            {
+                if(IsConnected)
+                {
+                    return;
+                }
+
+                if (!IPAddress.TryParse(IpAdress.ToString(), out iPAddress))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Invalid IP", "Please enter a valid IP address.", "OK");
+                    return;
+                }
+
+                if (_webSocket.State == WebSocketState.Open)
+                {
+                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
+                    ConnectMessage = "Connect";
+                    return;
+                }
+
+                _webSocket = new ClientWebSocket();
+
+                Uri uri = new Uri($"ws://{IpAdress.ToString()}:{Settings.Port}");
+
+                ConnectMessage = "Connecting";
+
+                await _webSocket.ConnectAsync(uri, new CancellationTokenSource(10000).Token);
+                ConnectMessage = (_webSocket.State == WebSocketState.Open) ? "Disconnect" : "Connect";
+                IsConnected = true;
+            }
+            catch (Exception ex)
+            {
+                ConnectMessage = "Connect";
+                await Application.Current.MainPage.DisplayAlert("Connection Failed!", $"Make sure you have the robot right IP address and Rosbridge webserver is running on the robot and is listening to your set port in default settings, which is {Settings.Port}.", "OK");
+                IsConnected = false;
+            }
+        }
+
+        public async Task Forward()
+        {
+            StopButtonColor = Colors.Red;
+
+            double speed = 0;
+
+            while (IsHolding || IsListening)
+            {
+                speed = Math.Max(speed + 0.1, Settings.MaxLinearSpeed);
+                await SendVelocityCommand(speed, 0.0);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task ForwardLeft()
+        {
+            StopButtonColor = Colors.Red;
+
+            double linear = 0;
+            double angular = 0;
+
+            while (IsHolding || IsListening)
+            {
+                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
+
+                await SendVelocityCommand(linear, angular);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task ForwardRight()
+        {
+            StopButtonColor = Colors.Red;
+
+            double linear = 0;
+            double angular = 0;
+
+            while (IsHolding || IsListening)
+            {
+                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Min(angular - 0.1, -Settings.MaxLinearSpeed);
+                await SendVelocityCommand(linear, angular);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task RotateLeft()
+        {
+            StopButtonColor = Colors.Red;
+
+            double angular = 0;
+
+            while (IsHolding || IsListening)
+            {
+                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
+                await SendVelocityCommand(0.0, angular);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task RotateRight()
+        {
+            StopButtonColor = Colors.Red;
+
+            double angular = 0;
+
+            while (IsHolding || IsListening)
+            {
+                angular = Math.Min(angular - 0.1, -Settings.MaxAngularSpeed);
+                await SendVelocityCommand(0.0, angular);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task Backward()
+        {
+            StopButtonColor = Colors.Red;
+
+            double speed = 0;
+
+            while (IsHolding || IsListening)
+            {
+                speed = Math.Min(speed - 0.1, -Settings.MaxLinearSpeed);
+                await SendVelocityCommand(speed, 0.0);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task BackwardLeft()
+        {
+            StopButtonColor = Colors.Red;
+
+            double linear = 0;
+            double angular = 0;
+
+            while (IsHolding || IsListening)
+            {
+                linear = Math.Min(linear - 0.1, -Settings.MaxLinearSpeed);
+                angular = Math.Min(angular - 0.1, -Settings.MaxAngularSpeed);
+
+                await SendVelocityCommand(linear, angular);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task BackwardRight()
+        {
+            StopButtonColor = Colors.Red;
+
+            double linear = 0;
+            double angular = 0;
+
+            while (IsHolding || IsListening)
+            {
+                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
+
+                await SendVelocityCommand(linear, angular);
+                await Task.Delay(200);
+            }
+        }
+
+        public async Task Stop()
+        {
+            StopButtonColor = Colors.Gray;
+
+            await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
+            IsListening = false;
+        }
+
+        public async Task Release()
+        {
+            StopButtonColor = Colors.Gray;
+
+            IsHolding = false;
+            await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
+        }
+
+        private async Task SendVelocityCommand(double linearX, double angularZ)
+        {
+           if(!IsConnected) return;
+
+            object message = new
+            {
+                op = "publish",
+                topic = Settings.CmdVelocityCommandTopic,
+                msg = new
+                {
+                    linear = new { x = linearX, y = 0.0, z = 0.0 },
+                    angular = new { x = 0.0, y = 0.0, z = angularZ }
+                }
+            };
+
+            string jsonMessage = JsonConvert.SerializeObject(message);
+            var bytes = Encoding.UTF8.GetBytes(jsonMessage);
+            var buffer = new ArraySegment<byte>(bytes);
+
+            try
+            {
+                await _webSocket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch
+            { }
+        }
+    }
+}
