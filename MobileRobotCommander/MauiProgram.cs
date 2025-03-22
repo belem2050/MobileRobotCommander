@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MobileRobotCommander.ViewModels;
 using MobileRobotCommander.Views;
+using CommunityToolkit.Maui;
 
 namespace MobileRobotCommander
 {
@@ -11,6 +12,7 @@ namespace MobileRobotCommander
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
