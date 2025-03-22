@@ -28,5 +28,10 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>App requires speech recognition to process voice commands</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App needs microphone access for speech recognition</string>
 </dict>
 </plist>
