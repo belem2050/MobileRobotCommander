@@ -1,14 +1,15 @@
 
+using MobileRobotCommander.service;
 using MobileRobotCommander.ViewModels;
 
 namespace MobileRobotCommander.Views
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage(MainPageVm vm)
+        public MainPage()
         {
             InitializeComponent();
-            BindingContext = vm;
+            BindingContext = new MainPageVm(MicFrame);
         }
 
         private async void ForwardLeftPressed(object sender, EventArgs e)
@@ -59,5 +60,15 @@ namespace MobileRobotCommander.Views
         {
             await((MainPageVm)BindingContext).Release();
         }
+
+        //private async void StartListeningButton_Clicked(object sender, EventArgs e)
+        //{
+        //    await((MainPageVm)BindingContext).StartListeningCommand.ExecuteAsync(null);
+        //}
+
+        //private async void StartListeningButton_Released(object sender, EventArgs e)
+        //{
+        //    await((MainPageVm)BindingContext).StopListening();
+        //}
     }
 }

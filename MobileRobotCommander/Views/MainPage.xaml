@@ -7,7 +7,6 @@
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center">
 
-        <!-- IP Address Input & Connect Button -->
         <HorizontalStackLayout Spacing="10" 
                                HorizontalOptions="Center" 
                                Margin="0,35,0,0">
@@ -18,22 +17,21 @@
                    TextColor="White"
                    HorizontalTextAlignment="Center"
                    FontSize="16" 
-                   Text="{Binding Path=IpAdress, Mode=TwoWay}"/>
-                   <Button Text="{Binding Path=ConnectMessage}" 
-                    BackgroundColor="#1976D2" 
-                    TextColor="White"
-                    FontSize="16" 
-                    CornerRadius="8" 
-                    Padding="12,10"
-                    HeightRequest="50" 
-                    WidthRequest="120"
-                    BorderColor="White" 
-                    BorderWidth="2"
-                    Command="{Binding Path=ConnectCommand}"
+                   Text="{Binding Path=Command.IpAdress, Mode=TwoWay}"/>
+            <Button  Text="{Binding Path=Command.ConnectMessage}" 
+                            BackgroundColor="#1976D2" 
+                            TextColor="White"
+                            FontSize="16" 
+                            CornerRadius="8" 
+                            Padding="12,10"
+                            HeightRequest="50" 
+                            WidthRequest="120"
+                            BorderColor="White" 
+                            BorderWidth="2"
+                            Command="{Binding Path=ConnectCommand}"
                     />
         </HorizontalStackLayout>
 
-        <!-- Joystick Layout (Centered) -->
         <Grid Padding="40"
               VerticalOptions="Center"
               HorizontalOptions="Center">
@@ -49,7 +47,6 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Top Row -->
             <ImageButton    Grid.Row="0" 
                             Grid.Column="0" 
                             Source="turn_left.png" 
@@ -82,7 +79,6 @@
                             Released="ButtonReleased"
                             />
 
-            <!-- Middle Row -->
             <ImageButton Grid.Row="1" 
                          Grid.Column="0" 
                          Source="rotate_left.png" 
@@ -94,17 +90,24 @@
                          Released="ButtonReleased"
                          />
 
-            <Frame  Grid.Row="1" 
-                    Grid.Column="1"
-                    WidthRequest="90" HeightRequest="90"
-                    CornerRadius="45"
-                    BackgroundColor="#1976D2"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center">
+            <Frame x:Name="MicFrame"
+                   Grid.Row="1" 
+                   Grid.Column="1"
+                   WidthRequest="90" 
+                   HeightRequest="90"
+                   CornerRadius="45"
+                   BackgroundColor="#1976D2"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"
+                   Opacity="1">  
                 <Image Source="mic.png" 
                        WidthRequest="50" 
-                       HeightRequest="50"
-                       />
+                       HeightRequest="50">
+                    <Image.GestureRecognizers>
+
+                        <TapGestureRecognizer Command="{Binding MicPressedCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
             </Frame>
 
             <ImageButton  Grid.Row="1" 
@@ -118,7 +121,6 @@
                           Released="ButtonReleased"
                           />    
 
-            <!-- Bottom Row -->
             <ImageButton    Grid.Row="2" 
                             Grid.Column="0" 
                             Source="back_left.png" 
@@ -154,9 +156,8 @@
                 />
         </Grid>
 
-        <!-- Stop Button -->
         <Button Text="STOP" 
-                BackgroundColor="#D32F2F" 
+                BackgroundColor="{Binding Path=Command.StopButtonColor}"
                 TextColor="White"
                 FontSize="20" 
                 FontAttributes="Bold"
