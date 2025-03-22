@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MobileRobotCommander.Models;
 using MobileRobotCommander.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace MobileRobotCommander
         private static object _lockInstance = new object();
         static private SystemManager? _instance = null;
 
-        public SettingsPageVm Settings { get; private set; } = new SettingsPageVm();
+        public ActionsCommand Command { get; private set; } = new ActionsCommand();
 
         private SystemManager()
         {
