@@ -80,42 +80,50 @@ namespace MobileRobotCommander.service
         {
             string cmd = cmd1.ToLower();
 
-            if (Grammar.Forward.Contains(cmd))
+            if (Grammar.Forward.Contains(cmd) 
+                || cmd.Contains("forward"))
             {
                 await Command.Forward().ConfigureAwait(true);
             }
-
-            else if (Grammar.TurnLeft.Contains(cmd))
+            else if (Grammar.TurnLeft.Contains(cmd)
+                || cmd.Contains("turn left"))
             {
                 await Command.ForwardLeft().ConfigureAwait(true);
             }
-            else if (Grammar.TurnRight.Contains(cmd))
+            else if (Grammar.TurnRight.Contains(cmd)
+                || cmd.Contains("turn right"))
             {
                 await Command.ForwardRight().ConfigureAwait(true);
             }
-            else if (Grammar.RotateLeft.Contains(cmd))
+            else if (Grammar.RotateLeft.Contains(cmd)
+                || cmd.Contains("rotate left"))
             {
                 await Command.RotateLeft().ConfigureAwait(true);
             }
 
-            else if (Grammar.RotateRight.Contains(cmd))
+            else if (Grammar.RotateRight.Contains(cmd)
+                || cmd.Contains("rotate right"))
             {
                 await Command.RotateRight().ConfigureAwait(true);
             }
 
-            else if (Grammar.Backward.Contains(cmd))
+            else if (Grammar.Backward.Contains(cmd)
+                || cmd.Contains("backwrd"))
             {
                 await Command.Backward().ConfigureAwait(true);
             }
-            else if (Grammar.BackwardLeft.Contains(cmd))
+            else if (Grammar.BackwardLeft.Contains(cmd)
+                || cmd.Contains("backward left"))
             {
                 await Command.BackwardLeft().ConfigureAwait(true);
             }
-            else if (Grammar.BackwardRight.Contains(cmd))
+            else if (Grammar.BackwardRight.Contains(cmd)
+                || cmd.Contains("backward right"))
             {
                 await Command.BackwardRight().ConfigureAwait(true);
             }
-            else if (Grammar.Stop.Contains(cmd))
+            else if (Grammar.Stop.Contains(cmd)
+                || cmd.Contains("stop"))
             {
                 await Command.Stop().ConfigureAwait(true);
 

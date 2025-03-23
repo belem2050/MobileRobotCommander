@@ -34,12 +34,12 @@ namespace MobileRobotCommander.Models
         public ActionsCommand()
         {
             IpAdress = Settings.DefaultIpAdress;
+            _webSocket = new ClientWebSocket();
             _cst = new CancellationTokenSource();
         }
 
         public async Task Connect()
         {
-            _webSocket = new ClientWebSocket();
             IPAddress iPAddress;
             try
             {
@@ -57,11 +57,11 @@ namespace MobileRobotCommander.Models
                     return;
                 }
 
-                _webSocket = new ClientWebSocket();
-
                 Uri uri = new Uri($"ws://{IpAdress.ToString()}:{Settings.Port}");
 
                 ConnectMessage = "Connecting";
+
+                _webSocket = new ClientWebSocket();
 
                 await _webSocket.ConnectAsync(uri, new CancellationTokenSource(10000).Token);
                 ConnectMessage = (_webSocket.State == WebSocketState.Open) ? "Disconnect" : "Connect";
@@ -90,6 +90,7 @@ namespace MobileRobotCommander.Models
                 await Application.Current.MainPage.DisplayAlert("Connection Failed!", $"Make sure you have the robot right IP address and Rosbridge webserver is running on the robot and is listening to your set port in default settings, which is {Settings.Port}.", "OK");
                 IsConnected = false;
                 ConnectButtonColor = Colors.Gray;
+                _webSocket = new ClientWebSocket();
             }
         }
 
