@@ -11,11 +11,11 @@ namespace MobileRobotCommander.ViewModels
     {
         public ActionsCommand Command { get; private set; } = SystemManager.GetInstance().Command;
    
-        private SpeechToTextService _speechToText;
+        public SpeechToTextService SpeechToText { get; private set; }  
 
         public MainPageVm(Frame frame)
         {
-            _speechToText = new SpeechToTextService(frame);
+            SpeechToText = new SpeechToTextService(frame);
             onFirstAppearing();
         }
 
@@ -43,7 +43,7 @@ namespace MobileRobotCommander.ViewModels
 
             Command.IsListening = true;
             Command.StopButtonColor = Colors.Red;
-            await _speechToText.StartListening();
+            await SpeechToText.StartListening();
         }
 
         [RelayCommand]
@@ -108,8 +108,8 @@ namespace MobileRobotCommander.ViewModels
             Command.IsHolding = false;
             Command.IsListening = false;
             await Command.Stop().ConfigureAwait(false);
-            await _speechToText.MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
-            _speechToText.MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
+            await SpeechToText.MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
+            SpeechToText.MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
         }
 
         public async Task Release()

@@ -10,6 +10,9 @@ namespace MobileRobotCommander.service
     {
         private object _lock = new object();
 
+        [ObservableProperty]
+        private string message = string.Empty;
+
         private SpeechToTextOptions _options = new SpeechToTextOptions
         {
             Culture = System.Globalization.CultureInfo.CurrentCulture,
@@ -49,6 +52,7 @@ namespace MobileRobotCommander.service
         {
             if (e.RecognitionResult.IsSuccessful)
             {
+                Message = e.RecognitionResult.Text;
                 _ = Task.Run(async () => await processCommand(e.RecognitionResult.Text));
             }
 
@@ -70,6 +74,7 @@ namespace MobileRobotCommander.service
             }
             else
             {
+                Message = string.Empty;
                 await MicFrame.ScaleTo(1, 200, Easing.SpringIn);
                 MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
             }
@@ -122,6 +127,8 @@ namespace MobileRobotCommander.service
                 {
                     MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
                     MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
+                    Message = string.Empty;
+
                 }
             }
         }

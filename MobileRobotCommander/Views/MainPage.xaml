@@ -175,6 +175,16 @@
                 Pressed="StopPressed"
                 Released="ButtonReleased"
                 />
+
+        <Label  Padding="15" 
+                Margin="0,50,0,0"
+                FontAttributes="Italic"
+                FontSize="40"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                BackgroundColor="Transparent"
+                Text="{Binding Path=SpeechToText.Message}"
+            />
     </VerticalStackLayout>
 
 </ContentPage>

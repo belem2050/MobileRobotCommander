@@ -27,6 +27,7 @@
         public static readonly List<string> Stop =
         [
             "stop",
+            "stop listening",
             "don't move",
             "halt",
             "freeze",
