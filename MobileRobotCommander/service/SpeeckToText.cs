@@ -55,11 +55,18 @@ namespace MobileRobotCommander.service
             if (Command.IsListening)
             {
                 await Task.Delay(100).ConfigureAwait(true);
-                await StartListening();
+                 await StartListening();
 
-                await MicFrame.ScaleTo(1, 200, Easing.SpringIn);
-                await Task.Delay(250).ConfigureAwait(true);
-                await MicFrame.ScaleTo(1.6, 200, Easing.SpringOut);
+                lock(_lock)
+                {
+                    if(Command.IsListening)
+                    {
+                        MicFrame.ScaleTo(1, 200, Easing.SpringIn);
+                        Task.Delay(250).ConfigureAwait(true);
+                        MicFrame.ScaleTo(1.6, 200, Easing.SpringOut);
+
+                    }
+                }
             }
             else
             {
@@ -109,11 +116,13 @@ namespace MobileRobotCommander.service
             }
             else if (Grammar.Stop.Contains(cmd))
             {
-                Command.IsListening = false;
                 await Command.Stop().ConfigureAwait(true);
 
-                await MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
-                MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
+                lock(_lock)
+                {
+                    MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
+                    MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
+                }
             }
         }
     }

@@ -1,10 +1,13 @@
+using MobileRobotCommander.ViewModels;
+
 namespace MobileRobotCommander.Views;
 
 public partial class AboutPage : ContentPage
 {
-	public AboutPage()
+	public AboutPage(AboutPageVm vm)
 	{
 		InitializeComponent();
+        BindingContext = vm;
 	}
 
     private async void OnLabelTapped(object sender, EventArgs e)

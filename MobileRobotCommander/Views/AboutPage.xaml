@@ -25,7 +25,7 @@
                            FontSize="18"
                            FontAttributes="Bold"
                            TextColor="Black" />
-                    <Label Text="1.0.0" 
+                    <Label Text="{Binding Path=AppVersion}" 
                            FontSize="16" 
                            TextColor="Black" />
                 </VerticalStackLayout>

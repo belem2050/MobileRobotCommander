@@ -83,7 +83,7 @@ namespace MobileRobotCommander.ViewModels
             }
           
             CmdVelocityCommandTopic = "/cmd_vel";
-            DefaultIpAdress = "192.168.1.33";
+            DefaultIpAdress = "0.0.0.0";
             Port = 9090;
             MaxLinearSpeed = 10;
             MaxAngularSpeed = 10;
