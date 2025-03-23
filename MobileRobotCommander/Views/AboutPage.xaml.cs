@@ -6,4 +6,20 @@ public partial class AboutPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void OnLabelTapped(object sender, EventArgs e)
+    {
+        string url = ((Label)sender).Text;
+
+        if(url.Contains("@"))
+        {
+            url = $"mailto:{url}";
+        }
+        try
+        {
+            await Launcher.OpenAsync(url);
+        }catch
+        {
+        }
+    }
 }

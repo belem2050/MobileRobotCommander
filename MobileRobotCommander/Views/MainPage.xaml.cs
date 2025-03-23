@@ -12,6 +12,17 @@ namespace MobileRobotCommander.Views
             BindingContext = new MainPageVm(MicFrame);
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+#pragma warning disable CS8602
+            Application.Current.UserAppTheme = AppTheme.Light;
+#pragma warning restore CS8602
+
+        }
+
+
         private async void ForwardLeftPressed(object sender, EventArgs e)
         {
             await((MainPageVm)BindingContext).ForwardLeftCommand.ExecuteAsync(null);
