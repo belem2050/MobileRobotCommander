@@ -8,8 +8,6 @@ namespace MobileRobotCommander.service
 {
     public partial class SpeechToTextService : ObservableObject
     {
-        private object _lock = new object();
-
         [ObservableProperty]
         private string message = string.Empty;
 
@@ -56,20 +54,18 @@ namespace MobileRobotCommander.service
                 _ = Task.Run(async () => await processCommand(e.RecognitionResult.Text));
             }
 
+            await Task.Delay(1000).ConfigureAwait(true);
+
             if (Command.IsListening)
             {
-                await Task.Delay(100).ConfigureAwait(true);
                  await StartListening();
 
-                lock(_lock)
+                if(Command.IsListening)
                 {
-                    if(Command.IsListening)
-                    {
-                        MicFrame.ScaleTo(1, 200, Easing.SpringIn);
-                        Task.Delay(250).ConfigureAwait(true);
-                        MicFrame.ScaleTo(1.6, 200, Easing.SpringOut);
+                    await MicFrame.ScaleTo(1, 200, Easing.SpringIn);
+                    await Task.Delay(250).ConfigureAwait(true);
+                    await MicFrame.ScaleTo(1.6, 200, Easing.SpringOut);
 
-                    }
                 }
             }
             else
@@ -123,13 +119,10 @@ namespace MobileRobotCommander.service
             {
                 await Command.Stop().ConfigureAwait(true);
 
-                lock(_lock)
-                {
-                    MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
-                    MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
-                    Message = string.Empty;
+                await MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
+                MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
+                Message = string.Empty;
 
-                }
             }
         }
     }
