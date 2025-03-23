@@ -1,7 +1,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileRobotCommander.Views.MainPage"
-             BackgroundColor="#121212">
+             BackgroundColor="LightSlateGray">
 
     <VerticalStackLayout Padding="10"
                          VerticalOptions="FillAndExpand"
@@ -9,14 +9,14 @@
 
         <HorizontalStackLayout Spacing="10" 
                                HorizontalOptions="Center" 
-                               Margin="0,35,0,0">
+                               Margin="0,50,0,0">
             
             <Entry WidthRequest="250" 
                    Placeholder="0.0.0.0"
-                   BackgroundColor="#2E2E2E" 
+                   BackgroundColor="Gray" 
                    TextColor="White"
                    HorizontalTextAlignment="Center"
-                   FontSize="16" 
+                   FontSize="24" 
                    Text="{Binding Path=Command.IpAdress, Mode=TwoWay}"/>
             <Button  Text="{Binding Path=Command.ConnectMessage}" 
                             BackgroundColor="{Binding Path=Command.ConnectButtonColor}" 
@@ -34,7 +34,8 @@
 
         <Grid Padding="40"
               VerticalOptions="Center"
-              HorizontalOptions="Center">
+              HorizontalOptions="Center"
+               Margin="0,24,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -53,7 +54,7 @@
                             WidthRequest="60" 
                             HeightRequest="60" 
                             BackgroundColor="Transparent" 
-                            Margin="0,10,40,10"
+                            Margin="0,0,60,10"
                             Pressed="ForwardLeftPressed"
                             Released="ButtonReleased"
                             />
@@ -64,7 +65,7 @@
                             WidthRequest="60" 
                             HeightRequest="60" 
                             BackgroundColor="Transparent" 
-                            Margin="20"
+                            Margin="0,0,0,10"
                             Pressed="ForwardPressed"
                             Released="ButtonReleased"
                             />   
@@ -74,7 +75,7 @@
                             WidthRequest="60" 
                             HeightRequest="60" 
                             BackgroundColor="Transparent" 
-                            Margin="40,10,0,0"
+                            Margin="60,0,0,0"
                             Pressed="ForwardRightPressed"
                             Released="ButtonReleased"
                             />
@@ -85,7 +86,7 @@
                          WidthRequest="60" 
                          HeightRequest="60" 
                          BackgroundColor="Transparent" 
-                         Margin="0,10,40,10"
+                         Margin="0,0,60,10"
                          Pressed="RotateLeftPressed"
                          Released="ButtonReleased"
                          />
@@ -116,7 +117,7 @@
                           WidthRequest="60" 
                           HeightRequest="60" 
                           BackgroundColor="Transparent" 
-                          Margin="40,10,0,0"
+                          Margin="60,0,0,0"
                           Pressed="RotateRightPressed"
                           Released="ButtonReleased"
                           />    
@@ -127,7 +128,7 @@
                             WidthRequest="60" 
                             HeightRequest="60" 
                             BackgroundColor="Transparent" 
-                            Margin="0,10,40,10"
+                            Margin="0,10,60,0"
                             Pressed="BackwardLeftPressed"
                             Released="ButtonReleased"
                             />
@@ -138,7 +139,7 @@
                             WidthRequest="60" 
                             HeightRequest="60" 
                             BackgroundColor="Transparent" 
-                            Margin="20"
+                            Margin="0,10,0,0"
                             Pressed="BackwardPressed"
                             Released="ButtonReleased"
                             />
@@ -149,7 +150,7 @@
                             WidthRequest="60" 
                             HeightRequest="60" 
                             BackgroundColor="Transparent" 
-                            Margin="40,10,0,0"
+                            Margin="60,10,0,0"
                             Pressed="BackwardRightPressed"
                             Released="ButtonReleased"
                             
@@ -167,7 +168,7 @@
                 VerticalOptions="Center"
                 CornerRadius="10" 
                 Padding="15,10"
-                Margin="20"
+                Margin="0,24,0,0"
                 Pressed="StopPressed"
                 Released="ButtonReleased"
                 />

@@ -4,96 +4,108 @@
              xmlns:vm="clr-namespace:MobileRobotCommander.ViewModels"
              x:Class="MobileRobotCommander.Views.SettingsPage"
              Title="Settings"
-             BackgroundColor="#121212">
+             BackgroundColor="LightSlateGray">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="20">
+        <VerticalStackLayout Padding="10" Spacing="20">
 
-            <!-- Title -->
             <Label Text="Robot Control Settings" 
-                   FontSize="24"
+                   FontSize="Large"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="White"
+                   TextColor="Black"
                    />
 
-            <Frame Padding="10" CornerRadius="10" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                    BorderColor="#1976D2"
-                   >
+            <Frame Padding="10" 
+                    CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
+                   
                 <VerticalStackLayout>
-                    <Label Text="Robot default IP adress" FontSize="16" TextColor="White" />
+                    <Label Text="Robot default IP adress" 
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black" />
                     <Entry Text="{Binding DefaultIpAdress, Mode=TwoWay}" 
                             Keyboard="Default"
                             Placeholder="Enter port number"
                             FontSize="16" 
-                           TextColor="White"/>
+                           TextColor="Black"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame Padding="10" CornerRadius="10" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True" 
-                   BorderColor="#1976D2">
+            <Frame Padding="10" 
+                    CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
                 <VerticalStackLayout>
-                    <Label Text="Port" FontSize="16" TextColor="White" />
+                    <Label Text="Port" 
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black" />
                     <Entry Text="{Binding Port}" 
                            Keyboard="Numeric"
                            Placeholder="Enter port number"
                            FontSize="16" 
-                           TextColor="White"
+                           TextColor="Black"
                            />
                 </VerticalStackLayout>
             </Frame>
 
 
             <Frame Padding="10" 
-                   CornerRadius="10" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                   BorderColor="#1976D2"
-                   >
+                   CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
                 <VerticalStackLayout>
-                    <Label Text="Command velocity topic" FontSize="16" TextColor="White"/>
+                    <Label Text="Command velocity topic" 
+                           FontSize="18"
+                           FontAttributes="Bold" 
+                           TextColor="Black"/>
                     <Entry Text="{Binding CmdVelocityCommandTopic}" 
                            Placeholder="Enter ROS topic"
                            FontSize="16"
-                           TextColor="White"/>
+                           TextColor="Black"/>
                 </VerticalStackLayout>
             </Frame>
 
             <Frame Padding="10" 
-                   CornerRadius="10" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True" 
-                   BorderColor="#1976D2">
+                   CornerRadius="12" 
+                  BackgroundColor="Transparent"
+                  HasShadow="True"
+                  BorderColor="Black">
                 <VerticalStackLayout>
                     <Label Text="Linear Max Speed" 
-                           FontSize="16" 
-                           TextColor="White"/>
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
                     <Slider Minimum="0" Maximum="10" 
                             Value="{Binding MaxLinearSpeed, Mode=TwoWay}" 
-                            ThumbColor="DeepSkyBlue" 
-                            MinimumTrackColor="DodgerBlue" 
-                            />
+                            ThumbColor="Black" 
+                            MaximumTrackColor="DodgerBlue"
+                            MinimumTrackColor="Black" />
                     
                 </VerticalStackLayout>
             </Frame>
 
             <Frame Padding="10" 
-                   CornerRadius="10" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                   BorderColor="#1976D2">
+                    CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
                 <VerticalStackLayout>
                     <Label Text="Angular Max Speed" 
-                           FontSize="16" 
-                           TextColor="White"/>
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
                     <Slider Minimum="0" Maximum="10" 
                             Value="{Binding MaxAngularSpeed, Mode=TwoWay}" 
-                            ThumbColor="DeepSkyBlue" 
-                            MinimumTrackColor="DodgerBlue" />
+                            ThumbColor="Black" 
+                            MaximumTrackColor="DodgerBlue"
+                            MinimumTrackColor="Black" />
                 </VerticalStackLayout>
             </Frame>
 

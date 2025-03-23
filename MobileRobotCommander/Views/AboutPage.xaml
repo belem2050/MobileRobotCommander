@@ -3,108 +3,143 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileRobotCommander.Views.AboutPage"
              Title="About"
-             BackgroundColor="#121212">
+             BackgroundColor="LightSlateGray">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="20">
+        <VerticalStackLayout Padding="10" Spacing="20">
 
-            <!-- App Title -->
             <Label Text="Mobile Robot Commander" 
                    FontSize="26"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" 
-                   TextColor="White" 
+                   TextColor="Black" 
                    Padding="0,20,0,10"/>
 
-            <!-- App Version Frame -->
             <Frame Padding="10" 
                    CornerRadius="12" 
-                   BackgroundColor="#2E2E2E" 
+                   BackgroundColor="Transparent"
                    HasShadow="True"
-                   BorderColor="#1976D2">
+                   BorderColor="Black">
                 <VerticalStackLayout>
                     <Label Text="Version" 
-                           FontSize="18" 
-                           TextColor="White" />
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Black" />
                     <Label Text="1.0.0" 
                            FontSize="16" 
-                           TextColor="White" />
+                           TextColor="Black" />
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Developer Info Frame -->
-            <Frame Padding="10" 
-                   CornerRadius="12" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                   BorderColor="#1976D2">
+            <Frame  Padding="10" 
+                    CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
                 <VerticalStackLayout>
                     <Label Text="Developer" 
-                           FontSize="18" 
-                           TextColor="White" />
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="Black" />
                     <Label Text="Moumouni BELEM" 
                            FontSize="16" 
-                           TextColor="White" />
+                           TextColor="Black" />
                     <Label Text="Engineer in Robotics and AI" 
                            FontSize="16" 
-                           TextColor="White" />
+                           TextColor="Black" />
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Acknowledgments Frame -->
-            <Frame Padding="10" 
-                   CornerRadius="12" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                   BorderColor="#1976D2">
-                <VerticalStackLayout>
-                    <Label Text="Acknowledgments" 
-                           FontSize="18" 
-                           TextColor="White" />
-                    <Label Text="Thanks to all contributors and the open-source community." 
-                           FontSize="16" 
-                           TextColor="White" />
-                </VerticalStackLayout>
-            </Frame>
 
-            <!-- Contact Information -->
-            <Frame Padding="10" 
-                   CornerRadius="12" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                   BorderColor="#1976D2">
+            <Frame  Padding="10" 
+                    CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
                 <VerticalStackLayout>
                     <Label Text="Contact" 
-                           FontSize="18" 
-                           TextColor="White" />
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="Black" />
 
-                    <Label Text="Email: moumouni.belem.ing@gmail.com" 
-                           FontSize="16" TextColor="White" />
+                    <Label Text="Email:" 
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Label Text="moumouni.belem.ing@gmail.com" 
+                           FontSize="16" 
+                           TextColor="Black"
+                           TextDecorations="Underline">
+                           <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelTapped" />
+                           </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="LinkedIn:" 
+                       FontSize="16"
+                           FontAttributes="Bold"
+                       TextColor="Black"/>
 
-                    <Label Text="LinkedIn: www.linkedin.com/in/moumouni-belem" 
-                           FontSize="16" TextColor="White" />
+                    <Label Text="https://www.linkedin.com/in/belem2050" 
+                           FontSize="16" 
+                           TextColor="Black"
+                           TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelTapped" />
+                           </Label.GestureRecognizers>
+                    </Label>
 
-                    <Label Text="Website: https://belem2050.github.io/" 
-                           FontSize="16" TextColor="White" />
+                    <Label Text="Website:" 
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Label Text="https://belem2050.github.io/" 
+                           FontSize="16" 
+                           TextColor="Black"
+                           TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelTapped" />
+                           </Label.GestureRecognizers>
+                    </Label>
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- GitHub Repository -->
-            <Frame Padding="10" 
-                   CornerRadius="12" 
-                   BackgroundColor="#2E2E2E" 
-                   HasShadow="True"
-                   BorderColor="#1976D2">
+            <Frame  Padding="10" 
+                    CornerRadius="15"
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
                 <VerticalStackLayout>
                     <Label Text="GitHub Repository" 
-                           FontSize="18" 
-                           TextColor="White" />
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="Black" 
+                           />
                     <Label Text="https://github.com/belem2050/MobileRobotCommander" 
                            FontSize="16" 
-                           TextColor="White" />
+                           TextColor="Black"
+                            TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </VerticalStackLayout>
             </Frame>
 
+            <Frame  Padding="10" 
+                    CornerRadius="12" 
+                    BackgroundColor="Transparent"
+                    HasShadow="True"
+                    BorderColor="Black">
+                <VerticalStackLayout>
+                    <Label Text="Acknowledgments" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="Black" />
+                    <Label Text="Thanks to all contributors and the open-source community." 
+                           FontSize="16" 
+                           TextColor="Black" />
+                </VerticalStackLayout>
+            </Frame>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
