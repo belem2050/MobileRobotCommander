@@ -16,6 +16,12 @@ namespace MobileRobotCommander.ViewModels
         public MainPageVm(Frame frame)
         {
             _speechToText = new SpeechToTextService(frame);
+            onFirstAppearing();
+        }
+
+        private async void onFirstAppearing()
+        {
+            await Application.Current.MainPage.DisplayAlert("Welcome!", "Mobile Robot commander is meant to command a mobile with Rosbridge webserver running on it. You can set up default settings in Settings flyout.", "OK");
         }
 
         [RelayCommand]
