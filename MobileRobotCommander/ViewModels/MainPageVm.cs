@@ -21,7 +21,7 @@ namespace MobileRobotCommander.ViewModels
 
         private async void onFirstAppearing()
         {
-            await Application.Current.MainPage.DisplayAlert("Welcome!", "Mobile Robot commander is meant to command a mobile with Rosbridge webserver running on it. You can set up default settings in Settings flyout.", "OK");
+            await Application.Current.MainPage.DisplayAlert("Welcome!", "Mobile Robot commander is meant to command a mobile robot with Rosbridge webserver running on it. \nYou can set up default settings in Settings flyout.", "OK");
         }
 
         [RelayCommand]
