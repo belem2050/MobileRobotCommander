@@ -49,16 +49,10 @@ namespace MobileRobotCommander.service
         {
             if (e.RecognitionResult.IsSuccessful)
             {
-                lock(_lock)
-                {
-                    new Thread(new ThreadStart(async () =>
-                    {
-                            await processCommand(e.RecognitionResult.Text);
-                    })).Start();
-                }
+                _ = Task.Run(async () => await processCommand(e.RecognitionResult.Text));
             }
 
-            if(Command.IsListening)
+            if (Command.IsListening)
             {
                 await Task.Delay(100).ConfigureAwait(true);
                 await StartListening();
@@ -74,49 +68,52 @@ namespace MobileRobotCommander.service
             }
         }
 
-        private async Task processCommand(string cmd)
+        private async Task processCommand(string cmd1)
         {
-            string command = cmd.ToLower();
+            string cmd = cmd1.ToLower();
 
-            if (Grammar.Forward.Contains(command))
+            if (Grammar.Forward.Contains(cmd))
             {
-                await Command.Forward().ConfigureAwait(false);
-            }
-
-            else if (Grammar.TurnLeft.Contains(command))
-            {
-                await Command.ForwardLeft().ConfigureAwait(false);
-            }
-            else if (Grammar.TurnRight.Contains(command))
-            {
-                await Command.ForwardRight().ConfigureAwait(false);
-            }
-            else if (Grammar.RotateLeft.Contains(command))
-            {
-                await Command.RotateLeft().ConfigureAwait(false);
+                await Command.Forward().ConfigureAwait(true);
             }
 
-            else if (Grammar.RotateRight.Contains(command))
+            else if (Grammar.TurnLeft.Contains(cmd))
             {
-                await Command.RotateRight().ConfigureAwait(false);
+                await Command.ForwardLeft().ConfigureAwait(true);
+            }
+            else if (Grammar.TurnRight.Contains(cmd))
+            {
+                await Command.ForwardRight().ConfigureAwait(true);
+            }
+            else if (Grammar.RotateLeft.Contains(cmd))
+            {
+                await Command.RotateLeft().ConfigureAwait(true);
             }
 
-            else if (Grammar.Backward.Contains(command))
+            else if (Grammar.RotateRight.Contains(cmd))
             {
-                await Command.Backward().ConfigureAwait(false);
+                await Command.RotateRight().ConfigureAwait(true);
             }
-            else if (Grammar.BackwardLeft.Contains(command))
+
+            else if (Grammar.Backward.Contains(cmd))
             {
-                await Command.BackwardLeft().ConfigureAwait(false);
+                await Command.Backward().ConfigureAwait(true);
             }
-            else if (Grammar.BackwardRight.Contains(command))
+            else if (Grammar.BackwardLeft.Contains(cmd))
             {
-                await Command.BackwardRight().ConfigureAwait(false);
+                await Command.BackwardLeft().ConfigureAwait(true);
             }
-            else if (Grammar.Stop.Contains(command))
+            else if (Grammar.BackwardRight.Contains(cmd))
+            {
+                await Command.BackwardRight().ConfigureAwait(true);
+            }
+            else if (Grammar.Stop.Contains(cmd))
             {
                 Command.IsListening = false;
-                await Command.Stop().ConfigureAwait(false);
+                await Command.Stop().ConfigureAwait(true);
+
+                await MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
+                MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
             }
         }
     }

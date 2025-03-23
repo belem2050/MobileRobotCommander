@@ -11,6 +11,8 @@ namespace MobileRobotCommander.Models
     {
         private ClientWebSocket _webSocket;
 
+        private CancellationTokenSource _cst;
+
         [ObservableProperty]
         public Color stopButtonColor = Colors.Gray;
 
@@ -32,6 +34,7 @@ namespace MobileRobotCommander.Models
         public ActionsCommand()
         {
             IpAdress = Settings.DefaultIpAdress;
+            _cst = new CancellationTokenSource();
         }
 
         public async Task Connect()
@@ -40,11 +43,6 @@ namespace MobileRobotCommander.Models
             IPAddress iPAddress;
             try
             {
-                if(IsConnected)
-                {
-                    return;
-                }
-            
                 if (!IPAddress.TryParse(IpAdress.ToString(), out iPAddress))
                 {
                     await Application.Current.MainPage.DisplayAlert("Invalid IP", "Please enter a valid IP address.", "OK");
@@ -91,7 +89,7 @@ namespace MobileRobotCommander.Models
                 ConnectMessage = "Connect";
                 await Application.Current.MainPage.DisplayAlert("Connection Failed!", $"Make sure you have the robot right IP address and Rosbridge webserver is running on the robot and is listening to your set port in default settings, which is {Settings.Port}.", "OK");
                 IsConnected = false;
-                ConnectButtonColor = Colors.Red;
+                ConnectButtonColor = Colors.Gray;
             }
         }
 
@@ -99,9 +97,14 @@ namespace MobileRobotCommander.Models
         {
             double speed = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                speed = Math.Max(speed + 0.1, Settings.MaxLinearSpeed);
+                speed = Math.Min(speed + 0.1, Settings.MaxLinearSpeed);
                 await SendVelocityCommand(speed, 0.0);
                 await Task.Delay(200);
             }
@@ -112,10 +115,17 @@ namespace MobileRobotCommander.Models
             double linear = 0;
             double angular = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+
+            await Task.Delay(250);
+
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
-                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
+                linear = Math.Min(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Min(angular + 0.1, Settings.MaxAngularSpeed);
 
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
@@ -127,10 +137,16 @@ namespace MobileRobotCommander.Models
             double linear = 0;
             double angular = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
-                angular = Math.Min(angular - 0.1, -Settings.MaxLinearSpeed);
+                linear = Math.Min(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Max(angular - 0.1, -Settings.MaxAngularSpeed);
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
             }
@@ -140,9 +156,14 @@ namespace MobileRobotCommander.Models
         {
             double angular = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
+                angular = Math.Min(angular + 0.1, Settings.MaxAngularSpeed);
                 await SendVelocityCommand(0.0, angular);
                 await Task.Delay(200);
             }
@@ -152,9 +173,14 @@ namespace MobileRobotCommander.Models
         {
             double angular = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                angular = Math.Min(angular - 0.1, -Settings.MaxAngularSpeed);
+                angular = Math.Max(angular - 0.1, -Settings.MaxAngularSpeed);
                 await SendVelocityCommand(0.0, angular);
                 await Task.Delay(200);
             }
@@ -164,9 +190,15 @@ namespace MobileRobotCommander.Models
         {
             double speed = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                speed = Math.Min(speed - 0.1, -Settings.MaxLinearSpeed);
+                speed = Math.Max(speed - 0.1, -Settings.MaxLinearSpeed);
                 await SendVelocityCommand(speed, 0.0);
                 await Task.Delay(200);
             }
@@ -177,10 +209,16 @@ namespace MobileRobotCommander.Models
             double linear = 0;
             double angular = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                linear = Math.Min(linear - 0.1, -Settings.MaxLinearSpeed);
-                angular = Math.Min(angular - 0.1, -Settings.MaxAngularSpeed);
+                linear = Math.Max(linear - 0.1, -Settings.MaxLinearSpeed);
+                angular = Math.Max(angular - 0.1, -Settings.MaxAngularSpeed);
 
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
@@ -192,10 +230,15 @@ namespace MobileRobotCommander.Models
             double linear = 0;
             double angular = 0;
 
-            while (IsHolding || IsListening)
+            _cst.Cancel();
+            await Task.Delay(250);
+            _cst = new CancellationTokenSource();
+
+            while (!_cst.Token.IsCancellationRequested &&
+                   (IsHolding || IsListening))
             {
-                linear = Math.Max(linear + 0.1, Settings.MaxLinearSpeed);
-                angular = Math.Max(angular + 0.1, Settings.MaxAngularSpeed);
+                linear = Math.Min(linear + 0.1, Settings.MaxLinearSpeed);
+                angular = Math.Min(angular + 0.1, Settings.MaxAngularSpeed);
 
                 await SendVelocityCommand(linear, angular);
                 await Task.Delay(200);
@@ -204,6 +247,10 @@ namespace MobileRobotCommander.Models
 
         public async Task Stop()
         {
+            _cst.Cancel();
+            await Task.Delay(250);
+            _cst = new CancellationTokenSource();
+
             StopButtonColor = Colors.Gray;
             await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
             IsListening = false;
@@ -218,8 +265,6 @@ namespace MobileRobotCommander.Models
 
         private async Task SendVelocityCommand(double linearX, double angularZ)
         {
-           if(!IsConnected) return;
-
             object message = new
             {
                 op = "publish",
