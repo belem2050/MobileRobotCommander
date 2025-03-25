@@ -173,7 +173,6 @@
                 Padding="15,10"
                 Margin="0,24,0,0"
                 Pressed="StopPressed"
-                Released="ButtonReleased"
                 />
 
         <Label  Padding="15" 

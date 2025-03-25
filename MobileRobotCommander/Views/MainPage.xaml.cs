@@ -25,51 +25,61 @@ namespace MobileRobotCommander.Views
 
         private async void ForwardLeftPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).ForwardLeftCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).ForwardLeftCommand.ExecuteAsync(null);
         }
         
         private async void ForwardPressed(object sender, EventArgs e)
         {
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+
             await ((MainPageVm)BindingContext).ForwardCommand.ExecuteAsync(null);
         }
 
         private async void ForwardRightPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).ForwardRightCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).ForwardRightCommand.ExecuteAsync(null);
         }    
 
         private async void RotateLeftPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).RotateLeftCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).RotateLeftCommand.ExecuteAsync(null);
         }  
 
         private async void RotateRightPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).RotateRightCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).RotateRightCommand.ExecuteAsync(null);
         }   
 
         private async void BackwardLeftPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).BackwardLeftCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).BackwardLeftCommand.ExecuteAsync(null);
         } 
         private async void BackwardRightPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).BackwardRightCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).BackwardRightCommand.ExecuteAsync(null);
         } 
         
         private async void BackwardPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).BackwardCommand.ExecuteAsync(null);
+            ((ImageButton)sender).BackgroundColor = Colors.Blue;
+            await ((MainPageVm)BindingContext).BackwardCommand.ExecuteAsync(null);
         }  
 
         private async void StopPressed(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).StopCommand.ExecuteAsync(null);
+            await ((MainPageVm)BindingContext).StopCommand.ExecuteAsync(null);
         }
 
         private async void ButtonReleased(object sender, EventArgs e)
         {
-            await((MainPageVm)BindingContext).Release();
+            ((ImageButton)sender).BackgroundColor = Colors.Transparent;
+            await ((MainPageVm)BindingContext).Release();
         }
 
         
