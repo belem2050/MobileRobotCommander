@@ -25,8 +25,7 @@ namespace MobileRobotCommander.Models
         [ObservableProperty]
         private string connectMessage = "Connect";
 
-        public bool IsHolding { get; set; } = false;
-        public bool IsListening { get; set; } = false;
+        public bool IsHoldingOrListening { get; set; } = false;
         public bool IsConnected { get; set; } = false;
 
         public SettingsPageVm Settings { get; set; } = new SettingsPageVm();
@@ -103,7 +102,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 speed = Math.Min(speed + 0.1, Settings.MaxLinearSpeed);
                 await SendVelocityCommand(speed, 0.0);
@@ -123,7 +122,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 linear = Math.Min(linear + 0.1, Settings.MaxLinearSpeed);
                 angular = Math.Min(angular + 0.1, Settings.MaxAngularSpeed);
@@ -144,7 +143,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 linear = Math.Min(linear + 0.1, Settings.MaxLinearSpeed);
                 angular = Math.Max(angular - 0.1, -Settings.MaxAngularSpeed);
@@ -162,7 +161,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 angular = Math.Min(angular + 0.1, Settings.MaxAngularSpeed);
                 await SendVelocityCommand(0.0, angular);
@@ -179,7 +178,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 angular = Math.Max(angular - 0.1, -Settings.MaxAngularSpeed);
                 await SendVelocityCommand(0.0, angular);
@@ -197,7 +196,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 speed = Math.Max(speed - 0.1, -Settings.MaxLinearSpeed);
                 await SendVelocityCommand(speed, 0.0);
@@ -216,7 +215,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 linear = Math.Max(linear - 0.1, -Settings.MaxLinearSpeed);
                 angular = Math.Max(angular - 0.1, -Settings.MaxAngularSpeed);
@@ -236,7 +235,7 @@ namespace MobileRobotCommander.Models
             _cst = new CancellationTokenSource();
 
             while (!_cst.Token.IsCancellationRequested &&
-                   (IsHolding || IsListening))
+                   IsHoldingOrListening)
             {
                 linear = Math.Min(linear + 0.1, Settings.MaxLinearSpeed);
                 angular = Math.Min(angular + 0.1, Settings.MaxAngularSpeed);
@@ -254,13 +253,13 @@ namespace MobileRobotCommander.Models
 
             StopButtonColor = Colors.Gray;
             await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
-            IsListening = false;
+            IsHoldingOrListening = false;
         }
 
         public async Task Release()
         {
             StopButtonColor = Colors.Gray;
-            IsHolding = false;
+            IsHoldingOrListening = false;
             await SendVelocityCommand(0.0, 0.0).ConfigureAwait(false);
         }
 

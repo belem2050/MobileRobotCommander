@@ -41,7 +41,7 @@ namespace MobileRobotCommander.ViewModels
                 }
             }
 
-            Command.IsListening = true;
+            Command.IsHoldingOrListening = true;
             Command.StopButtonColor = Colors.Red;
             await SpeechToText.StartListening();
         }
@@ -49,64 +49,63 @@ namespace MobileRobotCommander.ViewModels
         [RelayCommand]
         public async Task Forward()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.Forward().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task ForwardLeft()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.ForwardLeft().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task ForwardRight()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.ForwardRight().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task RotateLeft()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.RotateLeft().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task RotateRight()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.RotateRight().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task Backward()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.Backward().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task BackwardLeft()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.BackwardLeft().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task BackwardRight()
         {
-            Command.IsHolding = true;
+            Command.IsHoldingOrListening = true;
             await Command.BackwardRight().ConfigureAwait(false);
         }
 
         [RelayCommand]
         public async Task Stop()
         {
-            Command.IsHolding = false;
-            Command.IsListening = false;
+            Command.IsHoldingOrListening = false;
             await Command.Stop().ConfigureAwait(false);
             await SpeechToText.MicFrame?.ScaleTo(1, 200, Easing.SpringIn);
             SpeechToText.MicFrame.BackgroundColor = Color.FromArgb("#1976D2");
@@ -114,7 +113,7 @@ namespace MobileRobotCommander.ViewModels
 
         public async Task Release()
         {
-            Command.IsHolding = false;
+            Command.IsHoldingOrListening = false;
             await Command.Release().ConfigureAwait(false);
         }
     }

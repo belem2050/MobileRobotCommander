@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using MobileRobotCommander.Data;
 using MobileRobotCommander.Models;
 
@@ -56,11 +55,11 @@ namespace MobileRobotCommander.service
 
             await Task.Delay(1000).ConfigureAwait(true);
 
-            if (Command.IsListening)
+            if (Command.IsHoldingOrListening)
             {
                  await StartListening();
 
-                if(Command.IsListening)
+                if(Command.IsHoldingOrListening)
                 {
                     await MicFrame.ScaleTo(1, 200, Easing.SpringIn);
                     await Task.Delay(250).ConfigureAwait(true);
