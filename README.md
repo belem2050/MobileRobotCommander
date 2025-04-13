@@ -14,7 +14,18 @@ Either manual joystick or vocal instructions can be used!
 
 ## 📱 UI Preview
 
-> *Add screenshots here once available!*
+<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+
+  <img src="screenshots/screen6.jpg" alt="Screenshot 6" width="200" style="border: 1px solid #ccc; border-radius: 10px; padding: 4px;" />
+  <img src="screenshots/screen5.jpg" alt="Screenshot 5" width="200" style="border: 1px solid #ccc; border-radius: 10px; padding: 4px;" />
+  <img src="screenshots/screen4.jpg" alt="Screenshot 4" width="200" style="border: 1px solid #ccc; border-radius: 10px; padding: 4px;" />
+  <img src="screenshots/screen3.jpg" alt="Screenshot 3" width="200" style="border: 1px solid #ccc; border-radius: 10px; padding: 4px;" />
+  <img src="screenshots/screen2.jpg" alt="Screenshot 2" width="200" style="border: 1px solid #ccc; border-radius: 10px; padding: 4px;" />
+  <img src="screenshots/screen1.jpg" alt="Screenshot 1" width="200" style="border: 1px solid #ccc; border-radius: 10px; padding: 4px;" />
+
+</div>
+
+
 
 ---
 
@@ -27,6 +38,7 @@ Either manual joystick or vocal instructions can be used!
 
 ---
 
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -34,20 +46,24 @@ Either manual joystick or vocal instructions can be used!
 - [.NET 7 or 8 SDK](https://dotnet.microsoft.com/en-us/download)
 - Visual Studio 2022+ with MAUI workload installed
 - A connected Android/iOS device or simulator
+
 - A robot running rosbridge webserver
 
 ### Running the App
+
 
 ```bash
 git clone https://github.com/your-username/MobileRobotCommander.git
 cd MobileRobotCommander
 dotnet build
 dotnet run
----
+```
+
 
 Then, take in the Dedug/Realease Folder the apk file and install on the mobile phone.
 That's it! we're ready to go!
 
+---
 ## Coming
 
 I am on the process to get it on Play Store!
