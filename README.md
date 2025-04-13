@@ -40,7 +40,9 @@ Either manual joystick or vocal instructions can be used!
 
 
 ## 🚀 Getting Started
-
+### To download the apk file, it is [here](https://github.com/belem2050/MobileRobotCommander/releases/download/1.0.0/belem2050.mobilerobotcommander-Signed.apk).
+---
+### For code savy, keep going to set dev env.
 ### Prerequisites
 
 - [.NET 7 or 8 SDK](https://dotnet.microsoft.com/en-us/download)
