@@ -29,7 +29,7 @@
                            TextColor="Black" />
                     <Entry Text="{Binding DefaultIpAdress, Mode=TwoWay}" 
                             Keyboard="Default"
-                            Placeholder="Enter port number"
+                            Placeholder="Enter an IP adress"
                             FontSize="16" 
                            TextColor="Black"/>
                 </VerticalStackLayout>
