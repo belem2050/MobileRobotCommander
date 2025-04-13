@@ -1,13 +1,8 @@
-# MobileRobotCommander
-
-
 # 🤖 MobileRobotCommander
 
 **MobileRobotCommander** is a cross-platform .NET MAUI application for configuring and controlling mobile robots using customizable network and ROS (Robot Operating System) settings. 
 This app allows users to adjust robot parameters such as IP address, port, command velocity topics, and speed limits in a user-friendly interface.
-
----
-
+Either manual joystick or vocal instructions can be used!
 ## 🧰 Features
 
 - Set default robot IP address and port
