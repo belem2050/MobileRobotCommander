@@ -55,7 +55,7 @@ Either manual joystick or vocal instructions can be used!
 
 
 ```bash
-git clone https://github.com/your-username/MobileRobotCommander.git
+git clone https://github.com/belem2050/MobileRobotCommander.git
 cd MobileRobotCommander
 dotnet build
 dotnet run
